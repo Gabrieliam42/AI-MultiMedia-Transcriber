@@ -9,7 +9,8 @@
 
 	It needs FFmpeg to be present in the operating system and registered.
 
-	The script has a requirements.txt that contains the list of dependencies so those need to be installed.
+	The script has a requirements.txt that contains the list of dependencies so those need
+ 	to be installed.
 
 	For GPU CUDA processing it needs the latest supported NVIDIA GPU Computing Toolkit to be installed
  	with cuDNN version 8.9.7.29.
