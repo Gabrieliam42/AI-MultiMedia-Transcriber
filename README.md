@@ -25,3 +25,13 @@ AI MultiMedia Transcriber is a Python script that helps you create subtitles for
 - It does Automatic Audio Extraction so there's no need to extract audio separately, the script handles it for you.
 - The Text to Subtitle Conversion script generates a subtitle file (.srt) compatible with all video players.
 - GPU Acceleration is Optional so it uses NVIDIA GPUs for faster processing but it seamlessly switches to CPU if a compatible GPU isn't available.
+
+## Requirements:
+
+- `faster-whisper`
+- `ffmpeg-python`
+- `pytubefix`
+- `tk`
+- `torch==2.4.1+cu124`
+- `torchvision==0.19.1+cu124`
+- `torchaudio==2.4.1+cu124`
