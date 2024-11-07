@@ -1,7 +1,5 @@
 Custom License with Non-Commercial Clause
 
-
-
 Copyright (c) 2024 Gabriel Mihai Sandu
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -14,9 +12,15 @@ subject to the following conditions:
 This copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
 
-**Non-Commercial Clause**: The Software and derivative works thereof may not 
+Non-Commercial Clause: The Software and derivative works thereof may not 
 be sold or used for commercial purposes without prior written permission from 
 the copyright holder.
+
+Third-Party Tools, Libraries, Modules, and AI Models: Any tools, libraries, 
+modules, or AI models that are used in the development of this script are 
+protected by their own licenses and by their own developers and owners. This 
+license does not grant any rights to use, modify, distribute, or sell any 
+third-party components that may be included or referenced in the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -25,8 +29,6 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-
 
 Software Developer: Gabriel Mihai Sandu
 GitHub Profile: https://github.com/Gabrieliam42
