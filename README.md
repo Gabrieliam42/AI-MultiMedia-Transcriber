@@ -1,4 +1,4 @@
-# AI MultiMedia Transcriber (RO-EN and EN-RO)
+# AI MultiMedia Transcriber
 
 AI MultiMedia Transcriber helps you generate srt subtitles from multimedia files like mp4, mkv, wav or mp3, or even from a YouTube video URL.
 
