@@ -35,3 +35,14 @@ AI MultiMedia Transcriber is a Python script that helps you create subtitles for
 - `torch==2.4.1+cu124`
 - `torchvision==0.19.1+cu124`
 - `torchaudio==2.4.1+cu124`
+
+
+
+## AI Involvement
+
+The script's development did not depend on AI tools like ChatGPT, their main use was for creating code comments and descriptions.
+
+
+
+**Script Developer:** Gabriel Mihai Sandu  
+**GitHub Profile:** [https://github.com/Gabrieliam42](https://github.com/Gabrieliam42)
