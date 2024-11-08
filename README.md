@@ -6,8 +6,18 @@ AI MultiMedia Transcriber helps you generate srt subtitles from multimedia files
 
 - This `AI_MultiMedia_Transcriber.py` Python script can use CUDA GPU processing so it can run faster, or it will use CPU if CUDA is not available.
 - It needs FFmpeg to be present in the operating system and registered (for Windows users in PATH in Environment Variables).
-- The script has a `requirements.txt` that contains the list of dependencies, so those need to be installed.
+- The script has a `requirements.txt` that contains required dependencies as listed bellow.
 - For GPU CUDA processing, it needs the latest supported NVIDIA GPU Computing Toolkit to be installed with cuDNN version 8.9.7.29.
+
+## Requirements:
+
+- `faster-whisper`
+- `ffmpeg-python`
+- `pytubefix`
+- `tk`
+- `torch==2.4.1+cu124`
+- `torchvision==0.19.1+cu124`
+- `torchaudio==2.4.1+cu124`
 
 ## Therefore AI MultiMedia Transcriber performs the following actions:
 
@@ -25,16 +35,6 @@ AI MultiMedia Transcriber is a Python script that helps you create subtitles for
 - It does Automatic Audio Extraction so there's no need to extract audio separately, the script handles it for you.
 - The Text to Subtitle Conversion script generates a subtitle file (.srt) compatible with all video players.
 - GPU Acceleration is Optional so it uses NVIDIA GPUs for faster processing but it seamlessly switches to CPU if a compatible GPU isn't available.
-
-## Requirements:
-
-- `faster-whisper`
-- `ffmpeg-python`
-- `pytubefix`
-- `tk`
-- `torch==2.4.1+cu124`
-- `torchvision==0.19.1+cu124`
-- `torchaudio==2.4.1+cu124`
 
 
 
