@@ -17,8 +17,6 @@ AI MultiMedia Transcriber helps you generate srt subtitles from multimedia files
 - `pytubefix`
 - `tk`
 - `torch==2.4.1+cu124`
-- `torchvision==0.19.1+cu124`
-- `torchaudio==2.4.1+cu124`
 
 ## Therefore AI MultiMedia Transcriber performs the following actions:
 
