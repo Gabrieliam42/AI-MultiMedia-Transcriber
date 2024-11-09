@@ -26,7 +26,7 @@ AI MultiMedia Transcriber helps you generate srt subtitles from multimedia files
 2. It extracts a wav audio file from the source file or URL link.
 3. It starts the transcribe process and generates a text file named `subtitle.txt` in the current working directory.
 4. You can then run the `Convert_Subtitle_TimeFrame.py` script to convert the timeframe from `subtitle.txt` and it generates an srt subtitle file named `subtitle.srt` in the current working directory.
-5. It tries to use the GPU device with CUDA but if it's not available, it falls back to using CPU.
+5. It is meant to use the GPU device with CUDA but if it's not available, it falls back to using CPU.
 
 ## Full Description:
 
