@@ -6,8 +6,6 @@ import tkinter as tk
 from tkinter import messagebox, filedialog
 import ffmpeg
 import torch
-import torchvision
-import torchaudio
 import os
 import pytubefix as pytube
 from faster_whisper import WhisperModel
