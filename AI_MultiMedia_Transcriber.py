@@ -12,6 +12,9 @@ from faster_whisper import WhisperModel
 import math
 import sys
 
+# Set the Hugging Face cache directory to the current working directory
+os.environ["HUGGINGFACE_HUB_CACHE"] = os.getcwd()
+
 # Redirect console output to subtitle.txt
 class Logger(object):
     def __init__(self, filename="subtitle.txt"):
