@@ -96,7 +96,7 @@ def convert_time_to_srt_format(seconds):
 
 # Save subtitles to a .srt file in the current working directory
 def save_subtitles_as_srt(video_file, segments):
-    subtitle_filename = os.path.join(os.getcwd(), f"sub-{os.path.basename(video_file)}.srt")  # Ensure it saves in the current working directory
+    subtitle_filename = os.path.join(os.getcwd(), f"{os.path.basename(video_file)}.srt")  # Ensure it saves in the current working directory
     srt_content = ""
 
     if segments:
