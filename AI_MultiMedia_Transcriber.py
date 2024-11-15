@@ -11,15 +11,40 @@ import pytubefix as pytube
 from faster_whisper import WhisperModel
 import math
 import sys
+import ctypes
+import subprocess
 
 # Set the Hugging Face cache directory to the current working directory
 os.environ["HUGGINGFACE_HUB_CACHE"] = os.getcwd()
 
-# Redirect console output to subtitle.txt
+# Function to check if the script has administrative privileges
+def check_admin():
+    """Check if the user has administrative privileges."""
+    try:
+        return ctypes.windll.shell32.IsUserAnAdmin()
+    except AttributeError:
+        return False
+
+# If not running as admin, re-run the script with admin privileges
+def main():
+    if sys.platform != 'win32':
+        print("This script only runs on Windows")
+        sys.exit(1)
+
+    if not check_admin():
+        # Re-run the script with admin privileges
+        subprocess.run(['runas', '/user:Administrator', sys.executable, __file__])
+        sys.exit(0)
+
+    # Continue with the script if running as admin
+    run_application()
+
+# Redirect console output dynamically to match source file
 class Logger(object):
-    def __init__(self, filename="subtitle.txt"):
+    def __init__(self, video_file):
+        log_file = os.path.join(os.getcwd(), f"{os.path.splitext(os.path.basename(video_file))[0]}.txt")
         self.terminal = sys.stdout
-        self.log = open(filename, "w", encoding="utf-8")  # Set encoding to 'utf-8'
+        self.log = open(log_file, "w", encoding="utf-8")  # Set encoding to 'utf-8'
 
     def write(self, message):
         # Write to the terminal with 'replace' to avoid Unicode errors
@@ -31,14 +56,12 @@ class Logger(object):
         self.terminal.flush()
         self.log.flush()
 
-sys.stdout = Logger("subtitle.txt")  # Redirecting stdout to subtitle.txt
-
 # Extract the audio from video files (for example mp4, mkv)
 def extract_audio_from_video(video_file):
     print(f"Extracting audio from {video_file}...")
 
     # Extracted audio filename
-    audio_file = f"audio-{os.path.basename(video_file)}.wav"
+    audio_file = f"{os.path.basename(video_file)}.wav"
 
     try:
         # Extract audio using ffmpeg and save to a file
@@ -96,7 +119,9 @@ def convert_time_to_srt_format(seconds):
 
 # Save subtitles to a .srt file in the current working directory
 def save_subtitles_as_srt(video_file, segments):
-    subtitle_filename = os.path.join(os.getcwd(), f"{os.path.basename(video_file)}.srt")  # Ensure it saves in the current working directory
+    # Remove the file extension from the video file name
+    base_name = os.path.splitext(os.path.basename(video_file))[0]
+    subtitle_filename = os.path.join(os.getcwd(), f"{base_name}.srt")
     srt_content = ""
 
     if segments:
@@ -110,7 +135,8 @@ def save_subtitles_as_srt(video_file, segments):
     else:
         srt_content = "1\n00:00:00,000 --> 00:00:05,000\n(No transcription available)\n\n"
 
-    with open(subtitle_filename, "w", encoding='utf-8') as srt_file:  # Set encoding to 'utf-8'
+    # Write the SRT content to the file
+    with open(subtitle_filename, "w", encoding='utf-8') as srt_file:
         srt_file.write(srt_content)
 
     print(f"Subtitle file saved successfully: {subtitle_filename}")
@@ -128,18 +154,30 @@ def select_media_file():
 def process_selected_file():
     media_file = select_media_file()
     if media_file:
-        if media_file.endswith((".mp4", ".mkv", ".wav", ".mp3")):
-            # Extract audio from video files or process audio files directly
-            if media_file.endswith((".mp4", ".mkv")):
-                audio_file = extract_audio_from_video(media_file)
-                language_code, segments = transcribe_audio_file(audio_file)
-                if segments:  # Proceed only if transcription was successful
-                    subtitle_file = save_subtitles_as_srt(media_file, segments)
-            else:
-                language_code, segments = transcribe_audio_file(media_file)
-                if segments:  # Proceed only if transcription was successful
-                    subtitle_file = save_subtitles_as_srt(media_file, segments)
-            messagebox.showinfo("Success", f"Transcription and subtitles saved to: {subtitle_file}")
+        # Redirect stdout to log the output dynamically based on the media file
+        logger = Logger(media_file)
+        sys.stdout = logger
+
+        try:
+            if media_file.endswith((".mp4", ".mkv", ".wav", ".mp3")):
+                # Extract audio from video files or process audio files directly
+                if media_file.endswith((".mp4", ".mkv")):
+                    audio_file = extract_audio_from_video(media_file)
+                    language_code, segments = transcribe_audio_file(audio_file)
+                    if segments:  # Proceed only if transcription was successful
+                        subtitle_file = save_subtitles_as_srt(media_file, segments)
+                else:
+                    language_code, segments = transcribe_audio_file(media_file)
+                    if segments:  # Proceed only if transcription was successful
+                        subtitle_file = save_subtitles_as_srt(media_file, segments)
+
+                messagebox.showinfo("Success", f"Transcription and subtitles saved to: {subtitle_file}")
+        except Exception as e:
+            messagebox.showerror("Error", f"An error occurred: {e}")
+        finally:
+            # Ensure the log file is closed properly
+            sys.stdout = logger.terminal
+            logger.log.close()
 
 # Process the YouTube video URL for transcription and subtitle saving
 def process_youtube_video_url():
@@ -196,3 +234,6 @@ youtube_url_button.pack(pady=20)
 
 # Run the main event loop of the application
 root.mainloop()
+
+if __name__ == "__main__":
+    main()
