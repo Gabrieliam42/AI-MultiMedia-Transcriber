@@ -2,6 +2,7 @@
 # GitHub Profile: https://github.com/Gabrieliam42
 
 import os
+import glob
 
 def convert_to_srt(input_file, output_file):
     try:
@@ -58,7 +59,29 @@ def format_time(seconds):
     return f"{hours:02}:{minutes:02}:{seconds:02},{milliseconds:03}"
 
 if __name__ == "__main__":
-    input_file = os.path.join(os.getcwd(), 'subtitle.txt')
-    output_file = os.path.join(os.getcwd(), 'subtitle.srt')
-    convert_to_srt(input_file, output_file)
-    print("The subtitle file 'subtitle.srt' has been generated!")
+    # Detect all .txt files in the current working directory, excluding requirements.txt
+    txt_files = [
+        file for file in glob.glob(os.path.join(os.getcwd(), '*.txt'))
+        if os.path.basename(file).lower() != 'requirements.txt'
+    ]
+
+    if not txt_files:
+        print("No valid .txt file found in the current directory!")
+    else:
+        # Use the first detected .txt file
+        input_file = txt_files[0]
+        output_file = os.path.splitext(input_file)[0] + '.srt'
+        
+        print(f"Detected input file: {input_file}")
+        print(f"Generating output file: {output_file}")
+
+        # Convert the detected .txt file to SRT format
+        convert_to_srt(input_file, output_file)
+        print(f"The subtitle file '{output_file}' has been generated!")
+
+        # Delete the input .txt file after the SRT file has been generated
+        try:
+            os.remove(input_file)
+            print(f"Deleted the input file: {input_file}")
+        except Exception as e:
+            print(f"Failed to delete the input file: {e}")
