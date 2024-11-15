@@ -59,6 +59,16 @@ def format_time(seconds):
     return f"{hours:02}:{minutes:02}:{seconds:02},{milliseconds:03}"
 
 if __name__ == "__main__":
+        # Detect and delete WAV files
+    wav_files = glob.glob(os.path.join(os.getcwd(), "*.wav"))
+    for wav_file in wav_files:
+        print(f"Found WAV file: {wav_file}")
+        try:
+            os.remove(wav_file)
+            print(f"Deleted WAV file: {wav_file}")
+        except Exception as e:
+            print(f"Failed to delete WAV file: {e}")
+
     # Detect all .txt files in the current working directory, excluding requirements.txt
     txt_files = [
         file for file in glob.glob(os.path.join(os.getcwd(), '*.txt'))
