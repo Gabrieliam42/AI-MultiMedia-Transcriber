@@ -188,26 +188,41 @@ def process_youtube_video_url():
 
     try:
         yt_video = pytube.YouTube(youtube_url)
-        video_stream = yt_video.streams.filter(progressive=True, file_extension='mp4').order_by('resolution').desc().first()
+        # Attempt to fetch the highest-resolution stream
+        video_stream = yt_video.streams.get_highest_resolution()
 
         if video_stream:
             current_directory = os.getcwd()
-            video_stream.download(output_path=current_directory)
-            video_filename = video_stream.default_filename
+            print(f"Downloading video: {yt_video.title}")
+            video_filename = video_stream.download(output_path=current_directory)
+            print(f"Downloaded video saved as: {video_filename}")
 
-            audio_file = extract_audio_from_video(video_filename)
-            language_code, segments = transcribe_audio_file(audio_file)
-            if segments:  # Proceed only if transcription was successful
-                subtitle_file = save_subtitles_as_srt(video_filename, segments)
+            # Redirect console output to a log file specific to the downloaded video
+            logger = Logger(video_filename)
+            sys.stdout = logger
 
-            messagebox.showinfo("Success", f"Transcription and subtitles saved to: {subtitle_file}")
+            try:
+                # Extract audio from the downloaded video
+                audio_file = extract_audio_from_video(video_filename)
+                # Transcribe the extracted audio
+                language_code, segments = transcribe_audio_file(audio_file)
+                if segments:  # Proceed only if transcription was successful
+                    subtitle_file = save_subtitles_as_srt(video_filename, segments)
+
+                messagebox.showinfo("Success", f"Transcription and subtitles saved to: {subtitle_file}")
+            except Exception as e:
+                print(f"An error occurred: {e}")
+                messagebox.showerror("Error", f"An error occurred: {e}")
+            finally:
+                # Restore original stdout and close the log file
+                sys.stdout = logger.terminal
+                logger.log.close()
         else:
-            messagebox.showwarning("Download Error", "No video stream was found for download.")
-
-    except pytube.exceptions.PytubeFixError as e:
+            messagebox.showwarning("Download Error", "No suitable video stream was found for download.")
+    except pytube.exceptions.PytubeError as e:
         messagebox.showwarning("Pytube Error", f"An error occurred with Pytube: {e}")
     except Exception as e:
-        messagebox.showwarning("An error occurred", f"{e}")
+        messagebox.showwarning("Error", f"An unexpected error occurred: {e}")
 
 # Create the main application window
 root = tk.Tk()
