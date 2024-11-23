@@ -37,7 +37,7 @@ def main():
         sys.exit(0)
 
     # Continue with the script if running as admin
-    run_application()
+    root.mainloop()
 
 # Redirect console output dynamically to match source file
 class Logger(object):
