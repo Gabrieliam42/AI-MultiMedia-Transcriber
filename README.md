@@ -48,5 +48,6 @@ AI MultiMedia Transcriber is a Python script that helps you create subtitles for
 
 
 
+
 **Script Developer:** Gabriel Mihai Sandu  
 **GitHub Profile:** [https://github.com/Gabrieliam42](https://github.com/Gabrieliam42)
