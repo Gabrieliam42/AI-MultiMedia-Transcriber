@@ -23,7 +23,6 @@ AI MultiMedia Transcriber helps you generate srt subtitles from multimedia files
 - `torch==2.4.1+cu124`
 
 
-
 ## Therefore AI MultiMedia Transcriber performs the following actions:
 
 1. It starts by prompting the user to select a Source multimedia file.
