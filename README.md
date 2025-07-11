@@ -33,6 +33,7 @@ AI MultiMedia Transcriber helps you generate srt subtitles from multimedia files
 
 ## Full Description:
 
+
 AI MultiMedia Transcriber is a Python script that helps you create subtitles for your videos and audio files. It utilizes the power of Whisper, an OpenAI voice recognition model, to convert the audio track into text that can be converted into srt timeframe type subtitle format.
 
 - It supports various formats of multimedia files like MP4, MKV, WAV, MP3, or simply a YouTube video URL provided by the user.
