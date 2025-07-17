@@ -14,6 +14,7 @@ AI MultiMedia Transcriber helps you generate srt subtitles from multimedia files
 - The script has a `requirements.txt` that contains required dependencies as listed bellow.
 
 
+
 ## Requirements:
 
 - `faster-whisper`
